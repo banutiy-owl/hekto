@@ -1,0 +1,80 @@
+@use "../abstracts/variables" as *;
+
+body, * {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: $color-grey-3;
+
+}
+
+.text-semibold {
+  font-weight: 600;
+}
+
+.paragraph {
+  font-size: 1.6rem;
+   &--large{
+    font-size: 1.8rem;
+   }
+
+   &--bold{
+    font-weight: 700;  
+   }
+
+   &--small{
+    font-size: 1.4rem;
+   }
+}
+
+.heading {
+  color: $color-black;
+  font-size: 5.2rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-transform: capitalize;
+
+  &--2 {
+    font-size: 4.4rem;
+  }
+
+  &--3 {
+    font-size: 3.6rem;
+  }
+
+  &--4 {
+    font-size: 2.8rem;
+  }
+
+  &-sub {
+    font-size: 2.6rem;
+    &--2{
+      font-size: 2.2rem;
+    }
+
+    &--3{
+      font-size: 2rem;
+    }
+
+    &--4{
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.label {
+  font-size: 1.6rem;
+font-weight: 400;
+
+
+  &--small {
+    font-size: 1.4rem;
+  }
+
+  &--bold {
+    font-weight: 700;
+  }
+ 
+}
