@@ -97,6 +97,87 @@ body, * {
   font-weight: 700;
 }
 
+.carousel-container {
+  margin: 0 auto;
+}
+
+.hero-content {
+  padding: 19rem 0;
+  margin-left: -2rem;
+  max-width: 56rem;
+}
+.hero-content-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.hero-content .shop-now-button {
+  margin-top: 2.8rem;
+  border-radius: 8px;
+  padding: 16px 40px;
+  border: 1px solid #FB2E86;
+  background-color: #FB2E86;
+  color: #fff;
+  transition: all 0.2s;
+}
+.hero-content .shop-now-button:hover {
+  background-color: #fff;
+  color: #FB2E86;
+}
+
+.carousel-card {
+  padding: 0 5rem 4rem;
+  background-color: #f2f0ff;
+}
+.carousel-card-content {
+  display: flex;
+}
+.carousel-card-1 {
+  background-color: #f0fffb;
+}
+.carousel-card-2 {
+  background-color: #fff0f9;
+}
+.carousel-card .hero-subtitle {
+  color: #FB2E86;
+}
+.carousel-card .hero-image-main {
+  margin-left: 10rem;
+  margin-top: 3rem;
+}
+.carousel-card .hero-image-small {
+  height: 38rem;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.slick-dots li {
+  margin: 0 5px;
+  cursor: pointer;
+  margin-right: 1.6rem;
+}
+.slick-dots li .custom-dot {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 2px solid #FB2E86;
+  transform: rotate(45deg);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.slick-dots li.slick-active .custom-dot {
+  background-color: #FB2E86;
+}
+
 .header {
   width: 100%;
 }
