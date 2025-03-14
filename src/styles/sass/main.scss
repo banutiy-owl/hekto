@@ -6,5 +6,16 @@
 @use "base/animations";
 
 @use "components/carousel";
+@use "components/carousel-four";
+@use "components/featured";
+@use "components/category-tabs";
+@use "components/latest";
+@use "components/unique";
+@use "components/trending";
+@use "components/discount";
+@use "components/top-categories";
+@use "components/newsletter";
+@use "components/latest-blog";
 
-@use "layout/header"
+@use "layout/header";
+@use "layout/footer";

@@ -1,0 +1,72 @@
+@use "../abstracts/variables" as *;
+.discount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-content {
+      max-width: 60rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
+  }
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    &-item {
+      display: flex;
+      align-items: center;
+
+      gap: 1rem;
+      justify-content: flex-start;
+    }
+  }
+
+  &-title{
+    color: $color-primary;
+  }
+
+  &-shop-now {
+    border-radius: 8px;
+    padding: 16px 40px;
+    width: 30%;
+
+    border: 2px solid $color-primary;
+    background-color: $color-primary;
+    transition: all .3s ;
+    p {
+      color: $color-white;
+    }
+
+    &:hover{
+        background-color: $color-white;
+        p {
+          color: $color-primary;
+        }
+    }
+  }
+
+  .tabs {
+    display: flex;
+    gap: 10px;
+
+    .tab {
+      padding: 15px;
+      cursor: pointer;
+      background-color: $color-white;
+      border: none;
+      &.active {
+        color: $color-primary;
+      }
+    }
+  }
+}

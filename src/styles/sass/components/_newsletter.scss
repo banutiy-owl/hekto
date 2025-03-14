@@ -1,0 +1,37 @@
+@use "../abstracts/variables" as *;
+
+.newsletter {
+  height: 43rem;
+  background-image: url("/newsletter.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-content {
+    max-width: 70rem;
+    text-align: center;
+  }
+
+  .subscribe {
+    border-radius: 8px;
+    margin-top: 6rem;
+    padding: 16px 40px;
+    border: 2px solid $color-primary;
+    background-color: $color-primary;
+    transition: all .3s ;
+
+      color: $color-white;
+    
+
+    &:hover{
+        background-color: $color-white;
+        p {
+          color: $color-primary;
+        }
+    }
+  }
+}
