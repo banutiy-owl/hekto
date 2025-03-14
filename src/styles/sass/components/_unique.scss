@@ -1,0 +1,68 @@
+@use "../abstracts/variables" as *;
+
+.unique {
+  background-color: #f1f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-content {
+    max-width: 54rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+
+    &-add-to-cart {
+      display: flex;
+      gap: 1.6rem;
+      p {
+        color: $color-black;
+      }
+
+      .add-to-cart {
+        border-radius: 8px;
+        padding: 16px 40px;
+        background-color: $color-primary;
+
+        border: none;
+
+        h4 {
+          color: $color-white;
+        }
+      }
+    }
+
+    &-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      .paragraph {
+        position: relative;
+        padding-left: 3rem;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 11px;
+          height: 11px;
+          border-radius: 50%;
+        }
+      }
+
+      .paragraph:nth-child(1)::before {
+        background-color: $color-primary;
+      }
+
+      .paragraph:nth-child(2)::before {
+        background-color: $color-info;
+      }
+
+      .paragraph:nth-child(3)::before {
+        background-color: $color-success;
+      }
+    }
+  }
+}
