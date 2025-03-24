@@ -1,0 +1,195 @@
+@use "../abstracts/variables" as *;
+.cart {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: $color-white;
+    padding: 10rem 0;
+  }
+
+  &-content {
+    display: flex;
+    gap: 13rem;
+  }
+
+  &-checkout {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+    width: 30rem;
+
+    padding: 3rem;
+    border-radius: 8px;
+    background-color: $color-grey-1;
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-payment {
+      border-radius: 8px;
+      padding: 16px 40px;
+      color: $color-white;
+      background-color: $color-primary;
+      border: 1px solid $color-primary;
+
+      transition: all 0.3s;
+
+      &:hover {
+        color: $color-primary;
+        background-color: $color-white;
+      }
+    }
+
+    &-total {
+      p {
+        color: $color-black;
+      }
+
+      &-sub {
+        p {
+          color: $color-black;
+        }
+      }
+    }
+  }
+
+  &-clear-button {
+    color: $color-primary;
+    padding: 1.6rem 4rem;
+    border: none;
+    background-color: $color-white;
+
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $color-grey-1;
+    }
+  }
+
+  &-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    &-button {
+      margin-top: 2rem;
+      border-radius: 8px;
+      padding: 16px 40px;
+      background-color: $color-primary;
+      color: $color-white;
+      border: 1px solid $color-primary;
+
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: $color-white;
+        color: $color-primary;
+      }
+    }
+  }
+
+  &-items {
+    width: 64rem;
+    margin-bottom: 30px;
+  }
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    color: $color-black;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    img {
+      border-radius: 4px;
+      width: 149px;
+      height: 104px;
+    }
+
+    p,
+    .quantity-btn {
+      color: $color-black;
+    }
+
+    &-remove {
+      width: 3.2rem;
+      height: 3.2rem;
+      border: none;
+      background-color: $color-primary;
+      color: $color-white;
+      border-radius: 8px;
+    }
+
+    &-total {
+      color: $color-black;
+    }
+  }
+
+  .clear-cart {
+    margin-top: 20px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #e43a00;
+    }
+  }
+}
+
+.quantity {
+  padding: 0.7rem 1.7rem;
+  &-container {
+    display: flex;
+    align-items: center;
+
+    border-radius: 8px;
+    border: 1px solid $color-grey-2;
+  }
+
+  &-btn {
+    width: 3.6rem;
+    height: 3.6rem;
+    border: none;
+    background-color: $color-white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: #ddd;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}

@@ -7,6 +7,8 @@ import Header from "../components/Header";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import ProductsListCard from "../components/ProductsListCard";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
 interface Product {
   id: number;
@@ -29,7 +31,6 @@ interface FiltersType {
   priceRange: string;
   rating: number | null;
 }
-
 
 const Products: FC = () => {
   const [activePage, setActivePage] = useState<number>(1);
@@ -93,18 +94,14 @@ const Products: FC = () => {
     setView(viewType);
   };
 
-  const handleFilterChange = useCallback(
-    (newFilters: FiltersType) => {
-      setFilters((prevFilters) => {
-        if (JSON.stringify(prevFilters) !== JSON.stringify(newFilters)) {
-          return { ...prevFilters, ...newFilters };
-        }
-        return prevFilters;
-      });
-    },
-    []
-  );
-  
+  const handleFilterChange = useCallback((newFilters: FiltersType) => {
+    setFilters((prevFilters) => {
+      if (JSON.stringify(prevFilters) !== JSON.stringify(newFilters)) {
+        return { ...prevFilters, ...newFilters };
+      }
+      return prevFilters;
+    });
+  }, []);
 
   const calculatePriceRange = (price: number): string => {
     if (price < 150) return "$0 - $150";
@@ -172,247 +169,253 @@ const Products: FC = () => {
   );
 
   return (
-    <div className="products">
-      <Header />
-      <div className="products-content">
-        <h1 className="heading heading--1">Products</h1>
-        <div className="products-head">
-          <ul className="products-nav-links">
-            <Link href="/">
-              <div className="nav-link">Home</div>
-            </Link>
-            <svg
-              width="4"
-              height="4"
-              viewBox="0 0 4 4"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="2" cy="2" r="2" fill="#D9D9D9" />
-            </svg>
-            <Link href="/products">
-              <div className="nav-link nav-link-products">Products</div>
-            </Link>
-          </ul>
+    <Provider store={store}>
+      <div className="products">
+        <Header />
+        <div className="products-content">
+          <h1 className="heading heading--1">Products</h1>
+          <div className="products-head">
+            <ul className="products-nav-links">
+              <Link href="/">
+                <div className="nav-link">Home</div>
+              </Link>
+              <svg
+                width="4"
+                height="4"
+                viewBox="0 0 4 4"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="2" cy="2" r="2" fill="#D9D9D9" />
+              </svg>
+              <Link href="/products">
+                <div className="nav-link nav-link-products">Products</div>
+              </Link>
+            </ul>
 
-          <div className="products-switches">
-            <div className="dropdown dropdown-per-page">
-              <span>
-                Per Page{" "}
-                <span
-                  onClick={() => handlePerPageDropdownToggle()}
-                  className="dropdown-visible dropdown-visible-per-page"
-                >
-                  <p className="paragraph paragraph--small paragraph-page">
-                    {perPage}{" "}
-                  </p>
-
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+            <div className="products-switches">
+              <div className="dropdown dropdown-per-page">
+                <span>
+                  Per Page{" "}
+                  <span
+                    onClick={() => handlePerPageDropdownToggle()}
+                    className="dropdown-visible dropdown-visible-per-page"
                   >
-                    <path
-                      d="M2.99951 5L7.99967 10L12.9998 5"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    <p className="paragraph paragraph--small paragraph-page">
+                      {perPage}{" "}
+                    </p>
 
-                  {perPageDropdownVisible && (
-                    <div className="dropdown-content">
-                      {[10, 15, 20].map((value) => (
-                        <p
-                          key={value}
-                          onClick={() => handlePerPageChange(value)}
-                          className={
-                            perPage === value
-                              ? "paragraph--small dropdown-option dropdown-option-page active"
-                              : "paragraph--small dropdown-option dropdown-option-page"
-                          }
-                        >
-                          {value}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                </span>
-              </span>
-            </div>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.99951 5L7.99967 10L12.9998 5"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
 
-            <div className="dropdown dropdown-sort-by">
-              <span>
-                Sort By:{" "}
-                <span
-                  onClick={() => handleSortByDropdownToggle()}
-                  className="dropdown-visible dropdown-visible-sort-by"
-                >
-                  <p className="paragraph paragraph--small paragraph-sort">
-                    {sortBy}
-                  </p>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2.99951 5L7.99967 10L12.9998 5"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-
-                  {sortByDropdownVisible && (
-                    <div className="dropdown-content dropdown-content-sort-by">
-                      {["Price: High → Low", "Price: Low → High"].map(
-                        (value) => (
+                    {perPageDropdownVisible && (
+                      <div className="dropdown-content">
+                        {[10, 15, 20].map((value) => (
                           <p
                             key={value}
-                            onClick={() => handleSortByChange(value)}
+                            onClick={() => handlePerPageChange(value)}
                             className={
-                              sortBy === value
-                                ? "paragraph--small dropdown-option dropdown-option-sort active"
-                                : "paragraph--small dropdown-option dropdown-option-sort"
+                              perPage === value
+                                ? "paragraph--small dropdown-option dropdown-option-page active"
+                                : "paragraph--small dropdown-option dropdown-option-page"
                             }
                           >
                             {value}
                           </p>
-                        )
-                      )}
-                    </div>
-                  )}
+                        ))}
+                      </div>
+                    )}
+                  </span>
                 </span>
-              </span>
-            </div>
+              </div>
 
-            <div className="view-option">
-              View
-              <div
-                className={`view-option-grid ${
-                  view === "grid" ? "active" : ""
-                }`}
-                onClick={() => handleViewChange("grid")}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 16 16"
-                  fill={view === "grid" ? "#FB2E86" : "none"}
-                  stroke={view === "grid" ? "#FB2E86" : "#101750"}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="2"
-                    y="2"
-                    width="4"
-                    height="4"
-                    rx="1"
-                    stroke={view === "grid" ? "#FB2E86" : "#101750"}
-                  />
-                  <rect
-                    x="10"
-                    y="2"
-                    width="4"
-                    height="4"
-                    rx="1"
-                    stroke={view === "grid" ? "#FB2E86" : "#101750"}
-                  />
-                  <rect
-                    x="2"
-                    y="10"
-                    width="4"
-                    height="4"
-                    rx="1"
-                    stroke={view === "grid" ? "#FB2E86" : "#101750"}
-                  />
-                  <rect
-                    x="10"
-                    y="10"
-                    width="4"
-                    height="4"
-                    rx="1"
-                    stroke={view === "grid" ? "#FB2E86" : "#101750"}
-                  />
-                </svg>
-              </div>
-              <div
-                className={`view-option-list ${
-                  view === "list" ? "active" : ""
-                }`}
-                onClick={() => handleViewChange("list")}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="2"
-                    y="2"
-                    width="12"
-                    height="4"
-                    rx="1"
-                    stroke={view === "list" ? "#FB2E86" : "#101750"}
-                  />
-                  <rect
-                    x="2"
-                    y="10"
-                    width="12"
-                    height="4"
-                    rx="1"
-                    stroke={view === "list" ? "#FB2E86" : "#101750"}
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
+              <div className="dropdown dropdown-sort-by">
+                <span>
+                  Sort By:{" "}
+                  <span
+                    onClick={() => handleSortByDropdownToggle()}
+                    className="dropdown-visible dropdown-visible-sort-by"
+                  >
+                    <p className="paragraph paragraph--small paragraph-sort">
+                      {sortBy}
+                    </p>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.99951 5L7.99967 10L12.9998 5"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
 
-        <div className="products-list-filters">
-          {" "}
-          <div className="products-filters-container">
-            <Filters onFilterChange={handleFilterChange} />
-          </div>
-          <div className="products-list-container">
-            {(products.length === 0 || paginatedProducts.length===0) ? (
-              <p>No products found</p>
-            ) : (
-              <div
-                className={`product-cards ${
-                  view === "list" ? "list-view" : "grid-view"
-                }`}
-              >
-                {paginatedProducts.map((product) => (
-                  <ProductsListCard key={product.id} {...product} view={view} />
-                ))}
+                    {sortByDropdownVisible && (
+                      <div className="dropdown-content dropdown-content-sort-by">
+                        {["Price: High → Low", "Price: Low → High"].map(
+                          (value) => (
+                            <p
+                              key={value}
+                              onClick={() => handleSortByChange(value)}
+                              className={
+                                sortBy === value
+                                  ? "paragraph--small dropdown-option dropdown-option-sort active"
+                                  : "paragraph--small dropdown-option dropdown-option-sort"
+                              }
+                            >
+                              {value}
+                            </p>
+                          )
+                        )}
+                      </div>
+                    )}
+                  </span>
+                </span>
               </div>
-            )}
+
+              <div className="view-option">
+                View
+                <div
+                  className={`view-option-grid ${
+                    view === "grid" ? "active" : ""
+                  }`}
+                  onClick={() => handleViewChange("grid")}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 16 16"
+                    fill={view === "grid" ? "#FB2E86" : "none"}
+                    stroke={view === "grid" ? "#FB2E86" : "#101750"}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="2"
+                      y="2"
+                      width="4"
+                      height="4"
+                      rx="1"
+                      stroke={view === "grid" ? "#FB2E86" : "#101750"}
+                    />
+                    <rect
+                      x="10"
+                      y="2"
+                      width="4"
+                      height="4"
+                      rx="1"
+                      stroke={view === "grid" ? "#FB2E86" : "#101750"}
+                    />
+                    <rect
+                      x="2"
+                      y="10"
+                      width="4"
+                      height="4"
+                      rx="1"
+                      stroke={view === "grid" ? "#FB2E86" : "#101750"}
+                    />
+                    <rect
+                      x="10"
+                      y="10"
+                      width="4"
+                      height="4"
+                      rx="1"
+                      stroke={view === "grid" ? "#FB2E86" : "#101750"}
+                    />
+                  </svg>
+                </div>
+                <div
+                  className={`view-option-list ${
+                    view === "list" ? "active" : ""
+                  }`}
+                  onClick={() => handleViewChange("list")}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="2"
+                      y="2"
+                      width="12"
+                      height="4"
+                      rx="1"
+                      stroke={view === "list" ? "#FB2E86" : "#101750"}
+                    />
+                    <rect
+                      x="2"
+                      y="10"
+                      width="12"
+                      height="4"
+                      rx="1"
+                      stroke={view === "list" ? "#FB2E86" : "#101750"}
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="products-list-filters">
+            {" "}
+            <div className="products-filters-container">
+              <Filters onFilterChange={handleFilterChange} />
+            </div>
+            <div className="products-list-container">
+              {products.length === 0 || paginatedProducts.length === 0 ? (
+                <p>No products found</p>
+              ) : (
+                <div
+                  className={`product-cards ${
+                    view === "list" ? "list-view" : "grid-view"
+                  }`}
+                >
+                  {paginatedProducts.map((product) => (
+                    <ProductsListCard
+                      key={product.id}
+                      {...product}
+                      view={view}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="products-pagination">
+            {[...Array(totalPages)].map((_, index) => (
+              <div
+                key={index + 1}
+                className={`products-pagination-item ${
+                  activePage === index + 1 ? "active" : ""
+                }`}
+                onClick={() => handlePageClick(index + 1)}
+              >
+                {index + 1}
+              </div>
+            ))}
           </div>
         </div>
-        <div className="products-pagination">
-          {[...Array(totalPages)].map((_, index) => (
-            <div
-              key={index + 1}
-              className={`products-pagination-item ${
-                activePage === index + 1 ? "active" : ""
-              }`}
-              onClick={() => handlePageClick(index + 1)}
-            >
-              {index + 1}
-            </div>
-          ))}
-        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </Provider>
   );
 };
 

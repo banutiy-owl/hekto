@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
 
-interface Item {
-  title: string;
-  image: string;
-  price: string;
-  sale: string;
+interface Product {
+  id: number;
+  img: string;
+  name: string;
+  
 }
 
 interface LatestBlogProps {
-  pageItems: Item[];
+  pageItems: Product[];
 }
 
 const LatestBlog: React.FC<LatestBlogProps> = ({ pageItems }) => {
@@ -22,8 +22,8 @@ const LatestBlog: React.FC<LatestBlogProps> = ({ pageItems }) => {
             <div className="latest-blog-card-content">
               <img
                 className="latest-blog-image"
-                src={item.image}
-                alt={item.title}
+                src={item.img}
+                alt={item.name}
               />
               <div className="latest-blog-text">
                 <div className="latest-blog-text-info">
@@ -78,7 +78,7 @@ const LatestBlog: React.FC<LatestBlogProps> = ({ pageItems }) => {
                 </div>
                 <div className="latest-blog-text-details">
                   <p className="heading heading-sub--4 latest-blog-text-title">
-                    {item.title}
+                    {item.name}
                   </p>
 
                   <div className="latest-blog-text-description">

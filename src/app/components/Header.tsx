@@ -192,6 +192,7 @@ const Header: React.FC = () => {
                 />
               </svg>
             </div>
+            <Link href="/cart">
             <div className="cart header-top-right-element">
               <svg
                 width="16"
@@ -214,6 +215,7 @@ const Header: React.FC = () => {
                 />
               </svg>
             </div>
+            </Link>
           </div>
           </div>
         </div>
@@ -224,7 +226,7 @@ const Header: React.FC = () => {
             <img src="/icons/logo.svg" alt="Logo" className="logo" />
             <nav>
               <ul className="nav-links">
-                <div className="nav-link">Home</div>
+              <Link href="/"><div className="nav-link">Home</div></Link>
                 <Link href="/products">
                    
                   <div className="nav-link">Products</div></Link>

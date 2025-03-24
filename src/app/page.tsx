@@ -1,3 +1,4 @@
+"use client";
 import "../styles/css/style.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -11,8 +12,40 @@ import Discount from "./components/Discount";
 import TopCategories from "./components/TopCategories";
 import Newsletter from "./components/Newsletter";
 import LatestBlog from "./components/LatestBlog";
+import { useEffect, useState } from "react";
+
 
 export default function Home() {
+  interface Product {
+    id: number;
+    img: string;
+    name: string;
+    price: number;
+    oldPrice: number | null;
+    description: string;
+    rating: number;
+    code: string;
+    brand: string;
+    discount: string;
+    category: string;
+  }
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/products.json");
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const itemsHero = [
     {
       imageSmall: "lamp.png",
@@ -37,311 +70,6 @@ export default function Home() {
       subtitle: "Best Headphones For Your Life....",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscin in phasellus non in justo.",
-    },
-  ];
-
-  const itemsFeatured = [
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Headphones",
-      image: "card-images-2.jpg",
-      code: "Code - Y523201",
-      price: "$90.00",
-    },
-    {
-      title: "Laptop",
-      image: "card-images-3.jpg",
-      code: "Code - Y523201",
-      price: "$400.00",
-    },
-
-    {
-      title: "Black watches",
-      image: "card4.jpg",
-      code: "Code - Y523201",
-      price: "$35.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Headphones",
-      image: "card-images-2.jpg",
-      code: "Code - Y523201",
-      price: "$90.00",
-    },
-    {
-      title: "Laptop",
-      image: "card-images-3.jpg",
-      code: "Code - Y523201",
-      price: "$400.00",
-    },
-
-    {
-      title: "Black watches",
-      image: "card4.jpg",
-      code: "Code - Y523201",
-      price: "$35.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-    {
-      title: "Watches",
-      image: "card-images-1.jpg",
-      code: "Code - Y523201",
-      price: "$42.00",
-    },
-  ];
-
-  const categoryContent = {
-    new: [
-      {
-        id: 1,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-      {
-        id: 2,
-        image: "card-images-6.jpg",
-        title: "Shoes",
-        price: "$57.00",
-        sale: "$75.00",
-      },
-      {
-        id: 3,
-        image: "card-images-7.jpg",
-        title: "Perfume",
-        price: "$19.00",
-        sale: "$29.00",
-      },
-      {
-        id: 4,
-        image: "card-images-8.jpg",
-        title: "Present box",
-        price: "$12.00",
-        sale: "$29.00",
-      },
-      {
-        id: 5,
-        image: "card-images-9.jpg",
-        title: "Watches",
-        price: "$67.00",
-        sale: "$76.00",
-      },
-      {
-        id: 6,
-        image: "card-images-10.jpg",
-        title: "Ring",
-        price: "$56.00",
-        sale: "$65.00",
-      },
-    ],
-    best: [
-      {
-        id: 1,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-      {
-        id: 2,
-        image: "card-images-6.jpg",
-        title: "Shoes",
-        price: "$57.00",
-        sale: "$75.00",
-      },
-      {
-        id: 3,
-        image: "card-images-7.jpg",
-        title: "Perfume",
-        price: "$19.00",
-        sale: "$29.00",
-      },
-      {
-        id: 4,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-      {
-        id: 5,
-        image: "card-images-6.jpg",
-        title: "Shoes",
-        price: "$57.00",
-        sale: "$75.00",
-      },
-      {
-        id: 6,
-        image: "card-images-7.jpg",
-        title: "Perfume",
-        price: "$19.00",
-        sale: "$29.00",
-      },
-    ],
-    featured: [
-      {
-        id: 1,
-        image: "card-images-6.jpg",
-        title: "Shoes",
-        price: "$57.00",
-        sale: "$75.00",
-      },
-      {
-        id: 2,
-        image: "card-images-7.jpg",
-        title: "Perfume",
-        price: "$19.00",
-        sale: "$29.00",
-      },
-      {
-        id: 3,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-      {
-        id: 4,
-        image: "card-images-6.jpg",
-        title: "Shoes",
-        price: "$57.00",
-        sale: "$75.00",
-      },
-      {
-        id: 5,
-        image: "card-images-7.jpg",
-        title: "Perfume",
-        price: "$19.00",
-        sale: "$29.00",
-      },
-      {
-        id: 6,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-    ],
-    special: [
-      {
-        id: 1,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-      {
-        id: 2,
-        image: "card-images-5.jpg",
-        title: "Shoes",
-        price: "$57.00",
-        sale: "$75.00",
-      },
-      {
-        id: 3,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-      {
-        id: 4,
-        image: "card-images-6.jpg",
-        title: "Shoes",
-        price: "$57.00",
-        sale: "$75.00",
-      },
-      {
-        id: 5,
-        image: "card-images-7.jpg",
-        title: "Perfume",
-        price: "$19.00",
-        sale: "$29.00",
-      },
-      {
-        id: 6,
-        image: "card-images-5.jpg",
-        title: "Game console",
-        price: "$76.00",
-        sale: "$89.00",
-      },
-    ],
-  };
-
-  const pageItems = [
-    {
-      id: 1,
-      image: "card4.jpg",
-      title: "Game console",
-      price: "$76.00",
-      sale: "$89.00",
-    },
-    {
-      id: 2,
-      image: "card-images-3.jpg",
-      title: "Shoes",
-      price: "$57.00",
-      sale: "$75.00",
-    },
-    {
-      id: 3,
-      image: "card-images-2.jpg",
-      title: "Game console",
-      price: "$76.00",
-      sale: "$89.00",
-    },
-    {
-      id: 4,
-      image: "card-images-1.jpg",
-      title: "Shoes",
-      price: "$57.00",
-      sale: "$75.00",
     },
   ];
 
@@ -384,7 +112,26 @@ export default function Home() {
     },
   ];
 
+  const blogs = [
+    {
+      id: 1,
+      img: "blog-image-1.jpg",
+      name: "Top essential Trends in 2023",
+    },
+    {
+      id: 2,
+      img: "blog-image-2.jpg",
+      name: "Top esssential Trends in 2021",
+    },
+    {
+      id: 3,
+      img: "blog-image-3.jpg",
+      name: "Top esssential Trends in 2021",
+    },
+  ];
+
   return (
+   
     <div>
       <Header />
       <main>
@@ -394,25 +141,34 @@ export default function Home() {
             Featured Products
           </h2>
           <CarouselFourCards
-            items={itemsFeatured}
-            numPages={Math.ceil(itemsFeatured.length / 4)}
+            items={products}
+            numPages={Math.ceil(products.length / 4)}
           />
         </div>
         <div className="latest">
           <h2 className="heading heading--2 latest-title">Latest Products</h2>
-          <CategoryTabs categoryContent={categoryContent} />;
+          <CategoryTabs
+            categoryContent={{
+              new: products.slice(0, 6),
+              best: products.slice(6, 12),
+              featured: products.slice(12, 18),
+              special: products.slice(18, 24),
+            }}
+          />
+          ;
         </div>
         <Unique />
-        <Trending pageItems={pageItems} />
+        <Trending pageItems={products} />
         <Discount items={itemsDiscount} />
         <TopCategories
-          categories={itemsFeatured}
-          numPages={Math.ceil(itemsFeatured.length / 4)}
+          categories={products}
+          numPages={Math.ceil(products.length / 4)}
         />
         <Newsletter />
-        <LatestBlog pageItems={pageItems} />
+        <LatestBlog pageItems={blogs} />
       </main>
       <Footer />
     </div>
+ 
   );
 }

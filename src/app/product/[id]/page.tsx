@@ -6,6 +6,8 @@ import Header from "@/app/components/Header";
 import Tabs from "@/app/components/Tabs";
 import TabContent from "@/app/components/TabContent";
 import RelatedProducts from "@/app/components/RelatedProducts";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cartSlice"; 
 
 interface Product {
   id: number;
@@ -26,10 +28,13 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<string>("description");
+  const dispatch = useDispatch(); 
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
+
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -68,6 +73,15 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   if (!selectedProduct) {
     return <div>Product not found</div>;
   }
+
+
+  const handleAddToCart = () => {
+    console.log("added")
+    console.log(selectedProduct)
+    if (selectedProduct) {
+      dispatch(addToCart({ ...selectedProduct, quantity: 1 })); 
+    }
+  };
 
   return (
     <div>
@@ -129,7 +143,7 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
             <p className="paragraph">{selectedProduct.description}</p>
             <div className="product-details-info-button">
-              <button className="details-add-to-cart">Add To Cart</button>
+              <button className="details-add-to-cart" onClick={handleAddToCart}>Add To Cart</button>
               <div className="product-details-info-icon">
                 <svg
                   width="16"
