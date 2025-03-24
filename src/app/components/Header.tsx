@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from 'next/link';
 import "../../styles/css/style.css";
 
 const Header: React.FC = () => {
@@ -224,7 +225,9 @@ const Header: React.FC = () => {
             <nav>
               <ul className="nav-links">
                 <div className="nav-link">Home</div>
-                <div className="nav-link">Products</div>
+                <Link href="/products">
+                   
+                  <div className="nav-link">Products</div></Link>
                 <div className="nav-link">Blog</div>
                 <div className="nav-link">Contact</div>
               </ul>

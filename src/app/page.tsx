@@ -1,13 +1,13 @@
 import "../styles/css/style.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 import Carousel from "./components/Carousel";
 import CarouselFourCards from "./components/CarouselFourCards";
 import CategoryTabs from "./components/CategoryTabs";
 import Unique from "./components/Unique";
 import Trending from "./components/Trending";
-import Discount from "./components/Discount"
+import Discount from "./components/Discount";
 import TopCategories from "./components/TopCategories";
 import Newsletter from "./components/Newsletter";
 import LatestBlog from "./components/LatestBlog";
@@ -314,7 +314,7 @@ export default function Home() {
     ],
   };
 
-  const pageItems=[
+  const pageItems = [
     {
       id: 1,
       image: "card4.jpg",
@@ -342,8 +342,8 @@ export default function Home() {
       title: "Shoes",
       price: "$57.00",
       sale: "$75.00",
-    }
-  ]
+    },
+  ];
 
   const itemsDiscount = [
     {
@@ -383,7 +383,6 @@ export default function Home() {
       ],
     },
   ];
-  
 
   return (
     <div>
@@ -403,14 +402,17 @@ export default function Home() {
           <h2 className="heading heading--2 latest-title">Latest Products</h2>
           <CategoryTabs categoryContent={categoryContent} />;
         </div>
-        <Unique/>
-        <Trending pageItems={pageItems}/>
-        <Discount items={itemsDiscount}/>
-        <TopCategories categories={itemsFeatured} numPages={Math.ceil(itemsFeatured.length / 4)}/>
-        <Newsletter/>
-        <LatestBlog pageItems={pageItems}/>
+        <Unique />
+        <Trending pageItems={pageItems} />
+        <Discount items={itemsDiscount} />
+        <TopCategories
+          categories={itemsFeatured}
+          numPages={Math.ceil(itemsFeatured.length / 4)}
+        />
+        <Newsletter />
+        <LatestBlog pageItems={pageItems} />
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
