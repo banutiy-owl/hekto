@@ -16,6 +16,11 @@
 @use "components/top-categories";
 @use "components/newsletter";
 @use "components/latest-blog";
+@use "components/products";
+@use "components/products-card";
+@use "components/product-details";
+@use "components/related-products";
+@use "components/cart";
 
 @use "layout/header";
 @use "layout/footer";

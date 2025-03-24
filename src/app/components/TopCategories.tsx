@@ -5,15 +5,22 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-interface CategoryItem {
-  title: string;
-  image: string;
+interface Product {
+  id: number;
+  img: string;
+  name: string;
+  price: number;
+  oldPrice: number | null;
+  description: string;
+  rating: number;
   code: string;
-  price: string;
+  brand: string;
+  discount: string;
+  category: string;
 }
 
 interface TopCategoriesProps {
-  categories: CategoryItem[];
+  categories: Product[];
   numPages: number;
 }
 
@@ -72,13 +79,13 @@ const TopCategories: React.FC<TopCategoriesProps> = ({
                     
                     <img
                       className="top-categories-image"
-                      src={category.image}
-                      alt={category.title}
+                      src={category.img}
+                      alt={category.name}
                     />
 
                       <div className="top-categories-card-content-text">
                         <p className="heading heading-sub--4 top-categories-content-title">
-                          {category.title}
+                          {category.name}
                         </p>
 
                     </div>

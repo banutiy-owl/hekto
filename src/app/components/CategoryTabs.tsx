@@ -1,20 +1,26 @@
 "use client";
 import React, { useState } from "react";
 
-interface Card {
+interface Product {
   id: number;
-  image: string;
-  title: string;
-  price: string;
-  sale: string;
+  img: string;
+  name: string;
+  price: number;
+  oldPrice: number | null;
+  description: string;
+  rating: number;
+  code: string;
+  brand: string;
+  discount: string;
+  category: string;
 }
 
 interface CategoryTabsProps {
   categoryContent: {
-    new: Card[];
-    best: Card[];
-    featured: Card[];
-    special: Card[];
+    new: Product[];
+    best: Product[];
+    featured: Product[];
+    special: Product[];
   };
 }
 
@@ -128,12 +134,12 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categoryContent }) => {
               
                   </div>
              
-              <img src={card.image} alt="" className="latest-card-grid-image" />
+              <img src={card.img} alt="" className="latest-card-grid-image" />
               <div className="latest-card-grid-info">
-                <h3>{card.title}</h3>
+                <h3>{card.name}</h3>
                 <div className="prices">
                 <p className="label">{card.price}</p>
-                <p className="label label--small sale-price">{card.sale}</p>
+                <p className="label label--small sale-price">{card.oldPrice}</p>
                   </div>
               </div>
             </div>

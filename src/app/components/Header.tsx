@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from 'next/link';
 import "../../styles/css/style.css";
 
 const Header: React.FC = () => {
@@ -191,6 +192,7 @@ const Header: React.FC = () => {
                 />
               </svg>
             </div>
+            <Link href="/cart">
             <div className="cart header-top-right-element">
               <svg
                 width="16"
@@ -213,6 +215,7 @@ const Header: React.FC = () => {
                 />
               </svg>
             </div>
+            </Link>
           </div>
           </div>
         </div>
@@ -223,8 +226,10 @@ const Header: React.FC = () => {
             <img src="/icons/logo.svg" alt="Logo" className="logo" />
             <nav>
               <ul className="nav-links">
-                <div className="nav-link">Home</div>
-                <div className="nav-link">Products</div>
+              <Link href="/"><div className="nav-link">Home</div></Link>
+                <Link href="/products">
+                   
+                  <div className="nav-link">Products</div></Link>
                 <div className="nav-link">Blog</div>
                 <div className="nav-link">Contact</div>
               </ul>

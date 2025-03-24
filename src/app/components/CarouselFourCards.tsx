@@ -6,15 +6,22 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "../../styles/css/style.css";
 
-interface Item {
-  title: string;
-  image: string;
+interface Product {
+  id: number;
+  img: string;
+  name: string;
+  price: number;
+  oldPrice: number | null;
+  description: string;
+  rating: number;
   code: string;
-  price: string;
+  brand: string;
+  discount: string;
+  category: string;
 }
 
 interface CarouselFourCardsProps {
-  items: Item[];
+  items: Product[];
   numPages: number;
 }
 
@@ -122,13 +129,13 @@ const CarouselFourCards: React.FC<CarouselFourCardsProps> = ({
                   <div className="carousel-four-cards-card-content">
                     <img
                       className="featured-image"
-                      src={item.image}
-                      alt={item.title}
+                      src={item.img}
+                      alt={item.name}
                     />
                     <div className="featured-content">
                       <div className="featured-content-text">
                         <p className="label label--bold featured-content-title">
-                          {item.title}
+                          {item.name}
                         </p>
                         <p className="label label--small">{item.code}</p>
                         <p className="label label--bold featured-content-price">
