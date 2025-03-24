@@ -177,4 +177,6 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
+
+
 export default ProductDetail;
