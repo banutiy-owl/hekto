@@ -8,8 +8,41 @@
   gap: 4rem;
   border-radius: 4px;
 
-
   box-shadow: 8px 24px 32px -16px rgba(16, 23, 80, 0.15);
+
+  .floating-message {
+    position: absolute;
+    bottom: 4rem;
+    left: 55%;
+
+    padding: 10px;
+    background-color: $color-grey-2;
+    color: $color-black;
+    border-radius: 25px;
+
+    
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    animation: fade-in-out 1.5s ease-out;
+  }
+
+  @keyframes fade-in-out {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-10px);
+    }
+    10% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0px);
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+    }
+  }
 
   &-description {
     display: -webkit-box;
@@ -17,6 +50,8 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    max-width: 50rem;
   }
 
   &.grid-view {
@@ -29,7 +64,6 @@
     align-items: center;
 
     .product-card {
-
       &-rating {
         position: relative;
         padding-left: 1.7rem;
@@ -83,7 +117,6 @@
     border-radius: 4px;
     height: 20rem;
     min-width: 28.8rem;
-    
 
     img {
       border-radius: 4px;

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface Item {
@@ -53,7 +54,9 @@ const Discount: React.FC<DiscountProps> = ({ items }) => {
           <div className="discount-item">
             <div className="discount-item-content">
               <h3 className="heading heading--3">{activeItem.discount}</h3>
-              <h3 className="heading heading-sub--2 discount-title">{activeItem.title}</h3>
+              <h3 className="heading heading-sub--2 discount-title">
+                {activeItem.title}
+              </h3>
               <p className="paragraph paragraph--large">
                 {activeItem.description}
               </p>
@@ -78,10 +81,11 @@ const Discount: React.FC<DiscountProps> = ({ items }) => {
                   </div>
                 ))}
               </div>
-
-              <button className="discount-shop-now">
-                <p className="">Shop now</p>
-              </button>
+              <Link href="/products">
+                <button className="discount-shop-now">
+                  <p className="">Shop now</p>
+                </button>
+              </Link>
             </div>
             <img src="discount-image.png" alt="" className="discount-image" />
           </div>

@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Link from "next/link";
 
 interface Product {
   id: number;
@@ -70,9 +71,11 @@ const TopCategories: React.FC<TopCategoriesProps> = ({
               {pageItems.map((category, index) => (
                 <div key={index} className="top-categories-card">
                   <div className="top-categories-overlay">
+                    <Link href="/products">
                     <button className="top-categories-overlay-button-details">
                       View Category
                     </button>
+                    </Link>
                   </div>
                   <div className="underlay"></div>
                   <div className="top-categories-card-content">

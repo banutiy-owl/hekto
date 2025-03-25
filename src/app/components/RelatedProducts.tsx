@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 
 interface Product {
@@ -78,9 +79,11 @@ const RelatedProducts: React.FC<FourCardsProps> = ({ items }) => {
                   </svg>
                 </span>
               </div>
+              <Link href={`/product/${item.id}`}>
               <button className="overlay-button-details text-semibold">
                 View Details
               </button>
+              </Link>
             </div>
             <div className="related-products-card-content">
               <img

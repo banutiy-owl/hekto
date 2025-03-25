@@ -10,6 +10,9 @@ interface Product {
   description: string;
   rating: number;
   code: string;
+  brand: string;
+  discount: string;
+  category: string;
 }
 
 interface ProductsListProps {

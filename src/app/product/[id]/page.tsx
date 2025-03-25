@@ -6,8 +6,13 @@ import Header from "@/app/components/Header";
 import Tabs from "@/app/components/Tabs";
 import TabContent from "@/app/components/TabContent";
 import RelatedProducts from "@/app/components/RelatedProducts";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../features/cartSlice"; 
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../features/cartSlice";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../features/wishlistSlice";
+import { RootState } from "../../store/store";
 
 interface Product {
   id: number;
@@ -28,13 +33,12 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<string>("description");
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
+  const wishlist = useSelector((state: RootState) => state.wishlist.items);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
-
-
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,10 +57,9 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   }, []);
 
   useEffect(() => {
-  
     const findProductById = async () => {
       const { id } = await params;
-      const productId = parseInt(id, 10); 
+      const productId = parseInt(id, 10);
       const product = products.find((product) => product.id === productId);
       setSelectedProduct(product || null);
     };
@@ -74,12 +77,23 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
     return <div>Product not found</div>;
   }
 
+  const handleToggleWishlist = () => {
+    if (isProductInWishlist(selectedProduct)) {
+      dispatch(removeFromWishlist(selectedProduct.id));
+    } else {
+      dispatch(addToWishlist(selectedProduct));
+    }
+  };
+
+  const isProductInWishlist = (product: Product) => {
+    return wishlist.some((item) => item.id === product.id);
+  };
 
   const handleAddToCart = () => {
-    console.log("added")
-    console.log(selectedProduct)
+    console.log("added");
+    console.log(selectedProduct);
     if (selectedProduct) {
-      dispatch(addToCart({ ...selectedProduct, quantity: 1 })); 
+      dispatch(addToCart({ ...selectedProduct, quantity: 1 }));
     }
   };
 
@@ -141,22 +155,41 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
                 ${selectedProduct.oldPrice}
               </p>
             </div>
-            <p className="paragraph">{selectedProduct.description}</p>
+            <p className="paragraph product-details-info-description">{selectedProduct.description}</p>
             <div className="product-details-info-button">
-              <button className="details-add-to-cart" onClick={handleAddToCart}>Add To Cart</button>
-              <div className="product-details-info-icon">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13.7141 3.30182C12.9713 2.55413 11.9865 2.09955 10.9387 2.02074C9.89102 1.94192 8.84997 2.24411 8.00494 2.87236C7.11474 2.20608 6.00672 1.90396 4.90401 2.02683C3.80131 2.1497 2.78582 2.68844 2.06205 3.53456C1.33828 4.38068 0.959991 5.47133 1.00336 6.58688C1.04672 7.70243 1.50852 8.76001 2.29576 9.54665L7.50818 14.7917C7.57323 14.8577 7.65061 14.9101 7.73587 14.9459C7.82113 14.9816 7.91257 15 8.00494 15C8.0973 15 8.18875 14.9816 8.27401 14.9459C8.35927 14.9101 8.43665 14.8577 8.50169 14.7917L13.7141 9.54665C14.1218 9.13671 14.4452 8.64995 14.6658 8.11419C14.8864 7.57843 15 7.00418 15 6.42424C15 5.8443 14.8864 5.27004 14.6658 4.73428C14.4452 4.19852 14.1218 3.71177 13.7141 3.30182ZM12.7276 8.55396L8.00494 13.2992L3.28227 8.55396C2.8661 8.13343 2.5826 7.59861 2.46733 7.01657C2.35207 6.43454 2.41017 5.83121 2.63436 5.28228C2.85854 4.73335 3.23882 4.26325 3.72749 3.93097C4.21616 3.59868 4.79147 3.419 5.38123 3.41447C6.16912 3.41641 6.92404 3.73293 7.4802 4.29452C7.54524 4.3605 7.62262 4.41288 7.70788 4.44862C7.79314 4.48437 7.88459 4.50277 7.97695 4.50277C8.06931 4.50277 8.16076 4.48437 8.24602 4.44862C8.33128 4.41288 8.40866 4.3605 8.47371 4.29452C9.04625 3.79527 9.7859 3.53355 10.543 3.56233C11.3 3.59111 12.0179 3.90824 12.5514 4.44954C13.0849 4.99083 13.3941 5.71586 13.4164 6.47788C13.4387 7.23989 13.1725 7.98199 12.6716 8.55396H12.7276Z"
-                    fill="currentColor"
-                  />
-                </svg>
+              <button className="details-add-to-cart" onClick={handleAddToCart}>
+                Add To Cart
+              </button>
+              <div
+                className="product-details-info-icon"
+                onClick={handleToggleWishlist}
+              >
+                {isProductInWishlist(selectedProduct) ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    width="16"
+                    height="16"
+                  >
+                    <path
+                      fill="#ff0000"
+                      d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.7141 3.30182C12.9713 2.55413 11.9865 2.09955 10.9387 2.02074C9.89102 1.94192 8.84997 2.24411 8.00494 2.87236C7.11474 2.20608 6.00672 1.90396 4.90401 2.02683C3.80131 2.1497 2.78582 2.68844 2.06205 3.53456C1.33828 4.38068 0.959991 5.47133 1.00336 6.58688C1.04672 7.70243 1.50852 8.76001 2.29576 9.54665L7.50818 14.7917C7.57323 14.8577 7.65061 14.9101 7.73587 14.9459C7.82113 14.9816 7.91257 15 8.00494 15C8.0973 15 8.18875 14.9816 8.27401 14.9459C8.35927 14.9101 8.43665 14.8577 8.50169 14.7917L13.7141 9.54665C14.1218 9.13671 14.4452 8.64995 14.6658 8.11419C14.8864 7.57843 15 7.00418 15 6.42424C15 5.8443 14.8864 5.27004 14.6658 4.73428C14.4452 4.19852 14.1218 3.71177 13.7141 3.30182ZM12.7276 8.55396L8.00494 13.2992L3.28227 8.55396C2.8661 8.13343 2.5826 7.59861 2.46733 7.01657C2.35207 6.43454 2.41017 5.83121 2.63436 5.28228C2.85854 4.73335 3.23882 4.26325 3.72749 3.93097C4.21616 3.59868 4.79147 3.419 5.38123 3.41447C6.16912 3.41641 6.92404 3.73293 7.4802 4.29452C7.54524 4.3605 7.62262 4.41288 7.70788 4.44862C7.79314 4.48437 7.88459 4.50277 7.97695 4.50277C8.06931 4.50277 8.16076 4.48437 8.24602 4.44862C8.33128 4.41288 8.40866 4.3605 8.47371 4.29452C9.04625 3.79527 9.7859 3.53355 10.543 3.56233C11.3 3.59111 12.0179 3.90824 12.5514 4.44954C13.0849 4.99083 13.3941 5.71586 13.4164 6.47788C13.4387 7.23989 13.1725 7.98199 12.6716 8.55396H12.7276Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                )}
               </div>
             </div>
           </div>
@@ -168,7 +201,7 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
           <div className="product-details-related">
             <h3 className="heading heading--3">Related Products</h3>
-            <RelatedProducts items={products.slice(0, 4)}/>
+            <RelatedProducts items={products.slice(0, 4)} />
           </div>
         </div>
       </div>
@@ -176,7 +209,5 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
     </div>
   );
 };
-
-
 
 export default ProductDetail;

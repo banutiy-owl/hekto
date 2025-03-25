@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "../../styles/css/style.css";
+import Link from "next/link";
 
 interface Item {
   imageSmall: string;
@@ -53,7 +54,7 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
                     <h1 className="heading heading--1">{item.title}</h1>
                     <p>{item.description}</p>
                   </div>
-                  <button className="shop-now-button">Shop Now</button>
+                  <Link href="/products"><button className="shop-now-button">Shop Now</button></Link>
                 </div>
                 <img src={item.imageMain} alt="" className="hero-image-main" />
               </div>
