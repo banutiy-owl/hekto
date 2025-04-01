@@ -28,8 +28,8 @@ interface FiltersType {
   brands: string[];
   discounts: string[];
   categories: string[];
-  priceRange: string;
-  rating: number | null;
+  priceRange: string[];
+  rating: number[];
 }
 
 const Products: FC = () => {
@@ -38,8 +38,8 @@ const Products: FC = () => {
     brands: [],
     discounts: [],
     categories: [],
-    priceRange: "",
-    rating: null,
+    priceRange: [],
+    rating: [],
   });
 
   const [perPage, setPerPage] = useState<number>(10);
@@ -51,7 +51,6 @@ const Products: FC = () => {
     useState<boolean>(false);
 
   const [products, setProducts] = useState<Product[]>([]);
-  const totalPages = Math.ceil(products.length / perPage);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -132,17 +131,16 @@ const Products: FC = () => {
       );
     }
 
-    if (filters.priceRange) {
+    if (filters.priceRange && filters.priceRange.length > 0) {
       filteredProducts = filteredProducts.filter((product) => {
         const productPriceRange = calculatePriceRange(product.price);
-
-        return productPriceRange === filters.priceRange;
+        return filters.priceRange.includes(productPriceRange);
       });
     }
 
-    if (filters.rating !== null) {
-      filteredProducts = filteredProducts.filter(
-        (product) => product.rating === filters.rating
+    if (filters.rating && filters.rating.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        filters.rating.includes(product.rating)
       );
     }
 
@@ -167,6 +165,7 @@ const Products: FC = () => {
     (activePage - 1) * perPage,
     activePage * perPage
   );
+  const totalPages = Math.ceil(filteredProducts.length / perPage);
 
   return (
     <Provider store={store}>
@@ -399,19 +398,21 @@ const Products: FC = () => {
               )}
             </div>
           </div>
-          <div className="products-pagination">
-            {[...Array(totalPages)].map((_, index) => (
-              <div
-                key={index + 1}
-                className={`products-pagination-item ${
-                  activePage === index + 1 ? "active" : ""
-                }`}
-                onClick={() => handlePageClick(index + 1)}
-              >
-                {index + 1}
-              </div>
-            ))}
-          </div>
+          {filteredProducts.length > 0 && totalPages >= 1 && (
+            <div className="products-pagination">
+              {[...Array(totalPages)].map((_, index) => (
+                <div
+                  key={index + 1}
+                  className={`products-pagination-item ${
+                    activePage === index + 1 ? "active" : ""
+                  }`}
+                  onClick={() => handlePageClick(index + 1)}
+                >
+                  {index + 1}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <Footer />
       </div>

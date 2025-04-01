@@ -189,12 +189,14 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categoryContent }) => {
               <Link href={`product/${card.id}`}>
                 <img src={card.img} alt="" className="latest-card-grid-image" />
                 <div className="latest-card-grid-info">
-                  <h3>{card.name}</h3>
+                  <h3 className="label label--bold">{card.name}</h3>
                   <div className="prices">
-                    <p className="label">{card.price}</p>
-                    <p className="label label--small sale-price">
-                      {card.oldPrice}
-                    </p>
+                    <p className="label">${card.price}</p>
+                    {card.oldPrice && (
+                      <p className="label label--small sale-price">
+                        ${card.oldPrice}
+                      </p>
+                    )}
                   </div>
                 </div>
               </Link>

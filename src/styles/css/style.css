@@ -101,6 +101,15 @@ body, * {
   margin: 0 auto;
 }
 
+.hero-main-pic {
+  position: relative;
+}
+.hero-discount {
+  position: absolute;
+  top: 8rem;
+  right: 2rem;
+}
+
 .hero-content {
   padding: 19rem 0;
   margin-left: -2rem;
@@ -412,11 +421,49 @@ ul.slick-dots {
 .unique-content-add-to-cart .add-to-cart {
   border-radius: 8px;
   padding: 16px 40px;
+  position: relative;
   background-color: #FB2E86;
   border: none;
+  cursor: pointer;
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 .unique-content-add-to-cart .add-to-cart h4 {
   color: #fff;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+.unique-content-add-to-cart .add-to-cart::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #FB2E86, #FB2E86, #fb352e, #ffcc00, #66ff66, #0066ff);
+  background-size: 300% 300%;
+  z-index: -2;
+  transition: all 0.4s ease;
+}
+.unique-content-add-to-cart .add-to-cart:hover::before {
+  z-index: 0;
+  animation: gradient-animation 3s infinite ease-in-out;
+}
+.unique-content-add-to-cart .add-to-cart:hover h4 {
+  color: #fff;
+}
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 .unique-content-text {
   display: flex;
@@ -589,6 +636,12 @@ ul.slick-dots {
   padding: 2.5rem;
   justify-content: center;
 }
+.top-categories-overlay, .top-categories-card-content {
+  transition: transform 1s ease-in-out;
+}
+.top-categories-overlay, .top-categories-card-content {
+  transform: translateY(0) translateX(0);
+}
 .top-categories-card {
   border: none;
   width: 30rem;
@@ -596,7 +649,8 @@ ul.slick-dots {
   background-color: #fff;
   overflow: hidden;
   position: relative;
-  transition: all 0.7s;
+  border-radius: 1rem;
+  transition: all 0.7s ease-in-out;
 }
 .top-categories-card:hover {
   transform: translateY(-3rem);
@@ -610,9 +664,6 @@ ul.slick-dots {
 .top-categories-card:hover .top-categories-card-content {
   transform: translateY(-1.5rem) translateX(1rem);
   transition: transform 1s ease-in-out;
-}
-.top-categories-card {
-  transform: translateY(0) translateX(0);
 }
 .top-categories-card-content {
   width: 27rem;
@@ -666,6 +717,7 @@ ul.slick-dots {
   border: 2px solid #0CC562;
   color: #fff;
   background-color: #0CC562;
+  transition: all 0.3s ease-in-out;
 }
 .top-categories-overlay-button-details:hover {
   color: #0CC562;
@@ -929,6 +981,7 @@ ul.slick-dots {
 .products .filter-section hr {
   margin: 0.5rem 0 2rem;
   width: 100%;
+  max-width: 16.2rem;
   background-color: #101750;
 }
 .products .filter-label {
@@ -1010,35 +1063,6 @@ ul.slick-dots {
   border-radius: 4px;
   box-shadow: 8px 24px 32px -16px rgba(16, 23, 80, 0.15);
 }
-.product-card .floating-message {
-  position: absolute;
-  bottom: 4rem;
-  left: 55%;
-  padding: 10px;
-  background-color: #E5E0FC;
-  color: #101750;
-  border-radius: 25px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  animation: fade-in-out 1.5s ease-out;
-}
-@keyframes fade-in-out {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
-  }
-  10% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0px);
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(10px);
-  }
-}
 .product-card-description {
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -1081,6 +1105,7 @@ ul.slick-dots {
   height: 3.2rem;
   width: 3.2rem;
   margin-right: 1.1rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1126,6 +1151,35 @@ ul.slick-dots {
   text-decoration: line-through;
 }
 
+.floating-message {
+  position: absolute;
+  bottom: 4rem;
+  left: 55%;
+  padding: 10px;
+  background-color: #E5E0FC;
+  color: #101750;
+  border-radius: 25px;
+  opacity: 0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  animation: fade-in-out 1.5s ease-out;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    transform: translateX(-5%) translateY(-5px);
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .product-details-top {
   display: flex;
   justify-content: center;
@@ -1139,9 +1193,10 @@ ul.slick-dots {
   gap: 4rem;
   background-color: #fff;
   padding: 10rem 0;
+  width: 100%;
 }
 .product-details-related h3 {
-  margin-left: 4rem;
+  text-align: center;
 }
 .product-details-description-tabs {
   display: flex;
@@ -1241,6 +1296,7 @@ ul.slick-dots {
   box-shadow: 3px 50px 60px 0 rgba(16, 23, 80, 0.15);
 }
 .product-details-info {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
@@ -1305,6 +1361,11 @@ ul.slick-dots {
 }
 .product-details-info-button .details-add-to-cart h4 {
   color: #fff;
+}
+
+.floating-message {
+  bottom: 1rem;
+  left: 55%;
 }
 
 .related-products-row {
@@ -1472,13 +1533,14 @@ ul.slick-dots {
   color: #FB2E86;
 }
 .cart-items {
-  width: 64rem;
+  width: 70rem;
   margin-bottom: 30px;
 }
 .cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 15rem 13rem 10rem 3rem 5rem;
+  grid-template-rows: auto;
+  grid-gap: 15px;
   padding: 15px;
   background-color: #fff;
   color: #101750;
@@ -1489,6 +1551,9 @@ ul.slick-dots {
 }
 .cart-item:hover {
   transform: scale(1.03);
+}
+.cart-item-info {
+  min-width: 13rem;
 }
 .cart-item img {
   border-radius: 4px;
@@ -1694,7 +1759,7 @@ ul.slick-dots {
 }
 .header-dropdown-element {
   color: #fff;
-  padding: 1rem 1.2rem 1.2rem;
+  padding: 1rem 2.2rem 1.2rem 1.2rem;
 }
 .header-dropdown-element:first-child {
   border-radius: 5px 5px 0 0;
@@ -1860,6 +1925,7 @@ ul.slick-dots {
   height: 36px;
   cursor: pointer;
   border-radius: 6px;
+  margin-right: 2px;
 }
 .header-bottom-right .search-container .search-btn svg {
   margin-top: 6px;
@@ -1896,7 +1962,7 @@ ul.slick-dots {
 .footer-top .search-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   margin: 2rem 0;
   border: 1px solid #E5E0FC;
   border-radius: 8px;
@@ -1907,6 +1973,7 @@ ul.slick-dots {
   padding: 8px;
   border: none;
   padding-left: 1.6rem;
+  margin-left: 0.5rem;
 }
 .footer-top .search-container input::placeholder {
   font-size: 1.4rem;

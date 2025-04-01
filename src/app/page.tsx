@@ -155,7 +155,7 @@ export default function Home() {
               special: products.slice(18, 24),
             }}
           />
-          ;
+          
         </div>
         <Unique />
         <Trending pageItems={products} />

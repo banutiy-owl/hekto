@@ -18,9 +18,10 @@
 
     background-color: $color-white;
     padding: 10rem 0;
+    width: 100%;
 
     h3{
-        margin-left: 4rem;
+        text-align: center;
     }
   }
 
@@ -147,6 +148,7 @@
   }
 
   &-info {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
@@ -232,3 +234,7 @@
   }
 }
 
+.floating-message {
+  bottom: 1rem;
+  left: 55%;
+}

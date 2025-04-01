@@ -54,9 +54,22 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
                     <h1 className="heading heading--1">{item.title}</h1>
                     <p>{item.description}</p>
                   </div>
-                  <Link href="/products"><button className="shop-now-button">Shop Now</button></Link>
+                  <Link href="/products">
+                    <button className="shop-now-button">Shop Now</button>
+                  </Link>
                 </div>
-                <img src={item.imageMain} alt="" className="hero-image-main" />
+                <div className="hero-main-pic">
+                  <img
+                    src={item.imageMain}
+                    alt=""
+                    className="hero-image-main"
+                  />
+                  <img
+                    src="discount.png"
+                    alt=""
+                    className="hero-discount"
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -3,6 +3,18 @@
   margin: 0 auto;
 }
 
+.hero{
+  &-main-pic{
+    position: relative;
+  }
+
+  &-discount{
+    position: absolute;
+    top: 8rem;
+    right: 2rem;
+  }
+}
+
 .hero-content {
   padding: 19rem 0;
   margin-left: -2rem;

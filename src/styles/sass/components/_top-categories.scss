@@ -21,6 +21,16 @@
     justify-content: center;
   }
 
+  &-overlay,
+  &-card-content {
+    transition: transform 1s ease-in-out;
+  }
+
+  &-overlay,
+  &-card-content {
+    transform: translateY(0) translateX(0);
+  }
+
   &-card {
     border: none;
     width: 30rem;
@@ -28,8 +38,9 @@
     background-color: $color-white;
     overflow: hidden;
     position: relative;
+    border-radius: 1rem;
 
-    transition: all 0.7s;
+    transition: all 0.7s ease-in-out;
 
     &:hover {
       transform: translateY(-3rem);
@@ -49,9 +60,7 @@
       
     }
 
-    & {
-      transform: translateY(0) translateX(0);
-    }
+    
 
     &-content {
       width: 27rem;
@@ -114,6 +123,8 @@
       border: 2px solid $color-success;
       color: $color-white;
       background-color: $color-success;
+
+      transition: all 0.3s ease-in-out;
 
       &:hover {
         color: $color-success;

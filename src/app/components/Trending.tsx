@@ -27,7 +27,7 @@ const Trending: React.FC<TrendingProps> = ({ pageItems }) => {
       <div className="trending-row">
         {pageItems.slice(0, 4).map((item, index) => (
           <div key={index} className="trending-card">
-              <Link href={`/product/${item.id}`}>
+            <Link href={`/product/${item.id}`}>
               <div className="trending-card-content">
                 <img
                   className="trending-image"
@@ -42,18 +42,19 @@ const Trending: React.FC<TrendingProps> = ({ pageItems }) => {
 
                     <div className="trending-content-prices">
                       <p className="label trending-content-price">
-                        {item.price}
+                        ${item.price}
                       </p>
-
-                      <p className="label label--small trending-content-sale">
-                        {item.oldPrice}
-                      </p>
+                      {item.oldPrice && (
+                        <p className="label label--small trending-content-sale">
+                          ${item.oldPrice}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
-          </Link>
-            </div>
+            </Link>
+          </div>
         ))}
       </div>
     </div>

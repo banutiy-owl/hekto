@@ -34,6 +34,7 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<string>("description");
   const dispatch = useDispatch();
+  const [message, setMessage] = useState<string | null>(null);
   const wishlist = useSelector((state: RootState) => state.wishlist.items);
 
   const handleTabClick = (tab: string) => {
@@ -79,8 +80,12 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const handleToggleWishlist = () => {
     if (isProductInWishlist(selectedProduct)) {
+      setMessage("Item removed from wishlist!");
+      setTimeout(() => setMessage(null), 2000);
       dispatch(removeFromWishlist(selectedProduct.id));
     } else {
+      setMessage("Item added to wishlist!");
+      setTimeout(() => setMessage(null), 2000);
       dispatch(addToWishlist(selectedProduct));
     }
   };
@@ -90,9 +95,9 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   };
 
   const handleAddToCart = () => {
-    console.log("added");
-    console.log(selectedProduct);
     if (selectedProduct) {
+      setMessage("Item added to cart!");
+      setTimeout(() => setMessage(null), 2000);
       dispatch(addToCart({ ...selectedProduct, quantity: 1 }));
     }
   };
@@ -115,6 +120,7 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
             />
           </div>
           <div className="product-details-info">
+            {message && <div className="floating-message">{message}</div>}
             <h3 className="heading heading--3">{selectedProduct.name}</h3>
             <p className="product-details-rating">
               {[...Array(5)].map((_, index) => {
@@ -155,7 +161,9 @@ const ProductDetail = ({ params }: { params: Promise<{ id: string }> }) => {
                 ${selectedProduct.oldPrice}
               </p>
             </div>
-            <p className="paragraph product-details-info-description">{selectedProduct.description}</p>
+            <p className="paragraph product-details-info-description">
+              {selectedProduct.description}
+            </p>
             <div className="product-details-info-button">
               <button className="details-add-to-cart" onClick={handleAddToCart}>
                 Add To Cart

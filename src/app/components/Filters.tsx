@@ -11,8 +11,8 @@ interface FiltersState {
   brands?: string[];
   discounts?: string[];
   categories?: string[];
-  priceRange?: string;
-  rating?: number | null;
+  priceRange?: string[];
+  rating?: number[];
 }
 
 const Filters: FC<{ onFilterChange: (filters: any) => void }> = ({
@@ -38,10 +38,9 @@ const Filters: FC<{ onFilterChange: (filters: any) => void }> = ({
   ];
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedDiscounts, setSelectedDiscounts] = useState<string[]>([]);
-  const [selectedRating, setSelectedRating] = useState<number | null>(null);
+  const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<string>("");
-
+  const [priceRange, setPriceRange] = useState<string[]>([]);
   const [tempFilters, setTempFilters] = useState<FiltersState>({});
 
   useEffect(() => {
@@ -62,6 +61,7 @@ const Filters: FC<{ onFilterChange: (filters: any) => void }> = ({
       return updatedBrands;
     });
   };
+  
   const handleDiscountChange = (discount: string) => {
     setSelectedDiscounts((prev) => {
       const updatedDiscounts = prev.includes(discount)
@@ -89,23 +89,33 @@ const Filters: FC<{ onFilterChange: (filters: any) => void }> = ({
   };
 
   const handlePriceChange = (price: string) => {
-    const newPriceRange = priceRange === price ? "" : price;
-    setPriceRange(newPriceRange);
-    setTempFilters((prevFilters) => ({
-      ...prevFilters,
-      priceRange: newPriceRange,
-    }));
+    setPriceRange((prev) => {
+      const updatedPrices = prev.includes(price)
+        ? prev.filter((item) => item !== price)
+        : [...prev, price];
+      
+      setTempFilters((prevFilters) => ({
+        ...prevFilters,
+        priceRange: updatedPrices,
+      }));
+      return updatedPrices;
+    });
   };
-
+  
   const handleRatingChange = (rating: number) => {
-    const newRating = selectedRating === rating ? null : rating;
-    setSelectedRating(newRating);
-    setTempFilters((prevFilters) => ({
-      ...prevFilters,
-      rating: newRating,
-    }));
+    setSelectedRating((prev) => {
+      const updatedRatings = prev.includes(rating)
+        ? prev.filter((item) => item !== rating)
+        : [...prev, rating];
+      
+      setTempFilters((prevFilters) => ({
+        ...prevFilters,
+        rating: updatedRatings,
+      }));
+      return updatedRatings;
+    });
   };
-
+  
  
 
   return (
@@ -154,7 +164,7 @@ const Filters: FC<{ onFilterChange: (filters: any) => void }> = ({
     <input
       className="checkbox checkbox-rating"
       type="checkbox"
-      checked={selectedRating === rating}
+      checked={selectedRating.includes(rating)}
       onChange={() => handleRatingChange(rating)}
     />
     <span className="checkmark checkmark-rating"></span>
@@ -216,7 +226,7 @@ const Filters: FC<{ onFilterChange: (filters: any) => void }> = ({
             <input
               className="checkbox checkbox-price"
               type="checkbox"
-              checked={priceRange === price}
+              checked={priceRange.includes(price)}
               onChange={() => handlePriceChange(price)}
             />
              <span className="checkmark checkmark-price"></span>
