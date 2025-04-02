@@ -109,8 +109,9 @@
 
   &-item {
     display: grid;
-    grid-template-columns: 15rem 13rem 10rem 3rem 5rem;
+    grid-template-columns: 25% 26% 20% 10% 7%;
     grid-template-rows: auto;
+    align-items: center;
     grid-gap: 15px;
     padding: 15px;
     background-color: #fff;
@@ -157,9 +158,12 @@
 
 .quantity {
   padding: 0.7rem 1.7rem;
+
   &-container {
     display: flex;
     align-items: center;
+    height: 4rem;
+    width: 12rem;
 
     border-radius: 8px;
     border: 1px solid $color-grey-2;

@@ -71,12 +71,10 @@ const CarouselFourCards: React.FC<CarouselFourCardsProps> = ({
 
   const handleToggleWishlist = (product: Product) => {
     if (isProductInWishlist(product)) {
-      setMessage("Item removed from wishlist!");
-      setTimeout(() => setMessage(null), 3000);
+      alert("Item removed from wishlist!");
       dispatch(removeFromWishlist(product.id));
     } else {
-      setMessage("Item added to wishlist!");
-      setTimeout(() => setMessage(null), 3000);
+      alert("Item added to wishlist!");
       dispatch(addToWishlist(product));
     }
   };
@@ -86,8 +84,7 @@ const CarouselFourCards: React.FC<CarouselFourCardsProps> = ({
   };
 
   const handleAddToCart = (product: Product) => {
-    setMessage("Item added to cart!");
-    setTimeout(() => setMessage(null), 3000);
+    alert("Item added to cart!");
     if (product) {
       dispatch(addToCart({ ...product, quantity: 1 }));
     }
@@ -101,6 +98,7 @@ const CarouselFourCards: React.FC<CarouselFourCardsProps> = ({
             <div className="carousel-four-cards-row">
               {pageItems.map((item, index) => (
                 <div key={index} className="carousel-four-cards-card">
+                  
                   <div className="carousel-four-cards-overlay">
                     <div className="overlay-icons">
                       <span

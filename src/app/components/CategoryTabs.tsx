@@ -45,12 +45,10 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categoryContent }) => {
 
   const handleToggleWishlist = (product: Product) => {
     if (isProductInWishlist(product)) {
-      setMessage("Item removed from wishlist!");
-      setTimeout(() => setMessage(null), 3000);
+      alert("Item removed from wishlist!");
       dispatch(removeFromWishlist(product.id));
     } else {
-      setMessage("Item added to wishlist!");
-      setTimeout(() => setMessage(null), 3000);
+      alert("Item added to wishlist!");
       dispatch(addToWishlist(product));
     }
   };
@@ -60,8 +58,7 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({ categoryContent }) => {
   };
 
   const handleAddToCart = (product: Product) => {
-    setMessage("Item added to cart!");
-    setTimeout(() => setMessage(null), 3000);
+    alert("Item added to cart!");
     if (product) {
       dispatch(addToCart({ ...product, quantity: 1 }));
     }
